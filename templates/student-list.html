@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #666666;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        th {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .create-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .create-button a {
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .create-button a:hover {
+            background-color: #000;
+        }
+
+        .edit-button {
+            background-color: #ffbf00;
+            padding: 7px;
+            border-radius: 5px;
+        }
+
+        .delete-button {
+            background-color: #ff0000;
+            padding: 7px;
+            border-radius: 5px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-container form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .search-container button[type="submit"],
+        .search-container button[type="button"] {
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px; /* Adicionando margem entre os botões */
+        }
+
+        .search-container button[type="submit"]:hover,
+        .search-container button[type="button"]:hover {
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+{% if students %}
+    <div class="container">
+        <h2>Lista de Alunos</h2>
+        <div class="search-container">
+            <form action="{% url 'search_students' %}" method="get">
+                <input type="text" name="matricula" placeholder="Digite a matrícula...">
+                <button type="submit">Pesquisar</button>
+                <button type="button" onclick="window.location.href='{% url 'student_list' %}'">Ver Todos</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data de Ingresso</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.matricula }}</td>
+                    <td>{{ student.nome }}</td>
+                    <td>{{ student.data_nascimento }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.telefone }}</td>
+                    <td>{{ student.data_ingresso }}</td>
+                    <td class="actions">
+                        <a href="{% url 'student_edit' student.matricula %}" class="edit-button">Editar</a>
+                        <a href="{% url 'student_delete' student.matricula %}" class="delete-button">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="create-button">
+            <a href="{% url 'student_create' %}">Criar Novo Estudante</a>
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <h2>Lista de Alunos</h2>
+        <div class="search-container">
+            <form action="{% url 'search_students' %}" method="get">
+                <input type="text" name="matricula" placeholder="Digite a matrícula...">
+                <button type="submit">Pesquisar</button>
+            </form>
+        </div>
+        <p>Nenhum aluno encontrado com a matrícula fornecida.</p>
+    </div>
+{% endif %}
+</body>
+</html>

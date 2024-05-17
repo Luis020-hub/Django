@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluno não encontrado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #666666;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Aluno não encontrado</h2>
+        <p>O aluno que você está procurando não foi encontrado.</p>
+        <a href="{% url 'student_list' %}" class="back-link">Voltar para Lista de Alunos</a>
+    </div>
+</body>
+</html>
